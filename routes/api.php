@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\User\EducationController;
 use App\Http\Controllers\Api\User\VolunteerController;
 use App\Http\Controllers\Api\User\HabitController;
 use App\Http\Controllers\Api\User\DailyContentController;
+use App\Http\Controllers\Api\User\ChatbotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,6 +117,8 @@ Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::get('/delete-availability/{id}', [VolunteerController::class, 'destroyVolunteerAvailability']);
 
     Route::post('/event-details', [VolunteerController::class, 'eventDetails']);
+
+    Route::post('/ask-coach', [ChatbotController::class, 'askCoach']);
 
     Route::get('/habits', [HabitController::class, 'index']);
     Route::post('/habits', [HabitController::class, 'store']);
