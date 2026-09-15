@@ -74,47 +74,6 @@
         </li>
         @endcan
 
-        <li class="nav-item {{ request()->is('daily-contents') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.daily-contents') }}">
-                <i data-feather="file-text" class="align-self-center menu-icon"></i>
-                <span class="menu-title">Daily Content</span>
-            </a>
-        </li>
-
-        <li class="nav-item {{ request()->is('chat-rooms') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.chat-rooms.index') }}">
-                <i class="menu-icon mdi mdi-chat"></i>
-                <span class="menu-title">Chat Rooms</span>
-            </a>
-        </li>
-        <li class="nav-item {{ request()->is('reported-messages') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.reported-messages.index') }}">
-                <i class="menu-icon mdi mdi-alert-circle"></i>
-                <span class="menu-title">Reported Messages</span>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.rewards.index') }}">
-                <i data-feather="gift" class="align-self-center menu-icon"></i>
-                <span class="menu-title">Rewards Store</span>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.reward-redemptions.index') }}">
-                <i data-feather="shopping-cart" class="align-self-center menu-icon"></i>
-                <span class="menu-title">Redemptions</span>
-            </a>
-        </li>
-
-        <li class="nav-item {{ request()->is('badges') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.badges.index') }}">
-                <i data-feather="award" class="align-self-center menu-icon"></i>
-                <span class="menu-title">Badges & Trophies</span>
-            </a>
-        </li>
-
         @can('contact_access')
         <li class="nav-item {{ request()->is('contacts') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.contacts') }}">

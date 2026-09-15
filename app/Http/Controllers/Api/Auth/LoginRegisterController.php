@@ -202,8 +202,8 @@ class LoginRegisterController extends Controller
             if(Auth::attempt($credentialsOnly, $remember_me)){
                 $user = Auth::user();
 
-                // Check if the authenticated user has the 'user', 'volunteer', or 'admin' role
-                if (!($user->is_user || $user->is_volunteer || $user->is_admin)) {
+                // Check if the authenticated user has the 'user' role
+                if (!($user->is_user || $user->is_volunteer)) {
                   
                     $user = $request->user();
        

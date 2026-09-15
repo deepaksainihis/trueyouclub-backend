@@ -23,7 +23,9 @@ use App\Http\Controllers\Api\User\EventRequestController;
 use App\Http\Controllers\Api\User\EducationController;
 use App\Http\Controllers\Api\User\VolunteerController;
 use App\Http\Controllers\Api\User\HabitController;
-use App\Http\Controllers\Api\User\DailyContentController;
+use App\Http\Controllers\Api\User\FeedController;
+use App\Http\Controllers\Api\User\LeaderboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -60,22 +62,10 @@ Route::controller(SocialMediaController::class)->group(function () {
     Route::post('handle-facebook', 'handleFacebook');
 });
 
-Route::get('/chat-rooms', [\App\Http\Controllers\Api\ChatRoomController::class, 'index']);
-Route::get('/chat-rooms/{roomId}/members', [\App\Http\Controllers\Api\ChatRoomController::class, 'members']);
-Route::post('/chat-rooms/{roomId}/block-admin/{userId}', [\App\Http\Controllers\Api\ChatRoomController::class, 'blockUserAdmin']);
 
 Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
 
     Route::post('logout', [LogoutController::class, 'logout']);
-
-    Route::get('/reward-redemptions', [UserRewardController::class, 'redemptions']);
-
-    Route::post('/chat-rooms/{roomId}/join', [\App\Http\Controllers\Api\ChatRoomController::class, 'join']);
-    Route::post('/chat-rooms/{roomId}/leave', [\App\Http\Controllers\Api\ChatRoomController::class, 'leave']);
-    
-    Route::post('/chat-rooms/{roomId}/block/{userId}', [\App\Http\Controllers\Api\ChatRoomController::class, 'blockUser']);
-    Route::post('/chat-rooms/{roomId}/report', [\App\Http\Controllers\Api\ChatRoomController::class, 'reportMessage']);
-    Route::post('/chat-rooms/{roomId}/upload', [\App\Http\Controllers\Api\ChatRoomController::class, 'uploadFile']);
 
     Route::get('user-details', [ProfileController::class, 'userDetails']);
 
@@ -86,8 +76,6 @@ Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::post('update-user-status', [ProfileController::class, 'updateStatus']);
 
     Route::post('update-password', [ProfileController::class, 'updatePassword']);
-
-    Route::post('update-fcm-token', [ProfileController::class, 'updateFcmToken']);
 
 
     // Route::post('send-sms', [TwilioController::class, 'sendSms']);
@@ -117,20 +105,19 @@ Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
 
     Route::post('/event-details', [VolunteerController::class, 'eventDetails']);
 
+    // Gamification & Core App Features
     Route::get('/habits', [HabitController::class, 'index']);
     Route::post('/habits', [HabitController::class, 'store']);
-    Route::delete('/habits/{id}', [HabitController::class, 'destroy']);
-    Route::get('/habits/today', [HabitController::class, 'today']);
-    Route::post('/habits/{id}/check-in', [HabitController::class, 'checkIn']);
-    Route::get('/habit-stats', [HabitController::class, 'stats']);
-
-    Route::get('/daily-content/today', [DailyContentController::class, 'today']);
-
-    Route::get('/leaderboard', [\App\Http\Controllers\Api\User\GamificationController::class, 'leaderboard']);
-    Route::get('/rewards', [\App\Http\Controllers\Api\User\GamificationController::class, 'rewards']);
-    Route::post('/rewards/redeem', [\App\Http\Controllers\Api\User\GamificationController::class, 'redeem']);
-    Route::get('/user-badges', [\App\Http\Controllers\Api\User\UserBadgeController::class, 'index']);
+    Route::post('/habits/{id}/check', [HabitController::class, 'check']);
+    
+    Route::get('/feeds', [FeedController::class, 'index']);
+    
+    Route::get('/leaderboard', [LeaderboardController::class, 'index']);
 });
+
+use App\Http\Controllers\Api\User\ChatbotController;
+
+Route::post('/ask-coach', [ChatbotController::class, 'askCoach']);
 
 Route::get('/get-locations', [CommanController::class, 'getLocations']);
 

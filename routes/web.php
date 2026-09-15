@@ -60,12 +60,6 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
         Route::view('transactions', 'admin.transactions.index')->name('transactions');
 
         Route::view('quotes', 'admin.quote.index')->name('quotes');
-        Route::view('daily-contents', 'admin.daily-content.index')->name('daily-contents');
-        Route::get('/rewards', App\Http\Livewire\Admin\Reward\Index::class)->name('rewards.index');
-        Route::get('/reward-redemptions', App\Http\Livewire\Admin\RewardRedemption\Index::class)->name('reward-redemptions.index');
-        Route::get('/chat-rooms', App\Http\Livewire\Admin\ChatRoom\Index::class)->name('chat-rooms.index');
-        Route::get('/reported-messages', \App\Http\Livewire\Admin\ReportedMessage\Index::class)->name('reported-messages.index');
-        Route::get('/badges', App\Http\Livewire\Admin\Badge\Index::class)->name('badges.index');
 
         Route::view('seminars', 'admin.seminar.index')->name('seminars');
 
