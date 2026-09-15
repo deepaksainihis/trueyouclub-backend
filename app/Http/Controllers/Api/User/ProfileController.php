@@ -42,6 +42,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $user_details = [
+            'id'         => $user->id,
             'first_name' => $user->first_name ? ucwords($user->first_name) : null,
             'last_name'  => $user->last_name ? ucwords($user->last_name) : null,
             'name'       => $user->name ? ucwords($user->name) :  null,
@@ -130,6 +131,19 @@ class ProfileController extends Controller
             ];
             return response()->json($responseData, 500);
         }
+    }
+
+    public function updateFcmToken(Request $request)
+    {
+        $request->validate(['fcm_token' => 'required|string']);
+        $user = auth()->user();
+        $user->fcm_token = $request->fcm_token;
+        $user->save();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'FCM token updated successfully.'
+        ]);
     }
 
     public function changeProfileImage(Request $request)
