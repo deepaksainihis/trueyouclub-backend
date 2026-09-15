@@ -118,23 +118,23 @@ Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
 
     Route::post('/event-details', [VolunteerController::class, 'eventDetails']);
 
-    Route::post('/ask-coach', [ChatbotController::class, 'askCoach']);
-
+    
     Route::get('/habits', [HabitController::class, 'index']);
     Route::post('/habits', [HabitController::class, 'store']);
     Route::delete('/habits/{id}', [HabitController::class, 'destroy']);
     Route::get('/habits/today', [HabitController::class, 'today']);
     Route::post('/habits/{id}/check-in', [HabitController::class, 'checkIn']);
     Route::get('/habit-stats', [HabitController::class, 'stats']);
-
+    
     Route::get('/daily-content/today', [DailyContentController::class, 'today']);
-
+    
     Route::get('/leaderboard', [\App\Http\Controllers\Api\User\GamificationController::class, 'leaderboard']);
     Route::get('/rewards', [\App\Http\Controllers\Api\User\GamificationController::class, 'rewards']);
     Route::post('/rewards/redeem', [\App\Http\Controllers\Api\User\GamificationController::class, 'redeem']);
     Route::get('/user-badges', [\App\Http\Controllers\Api\User\UserBadgeController::class, 'index']);
-});
-
+    });
+    
+Route::post('/ask-coach', [ChatbotController::class, 'askCoach']);
 Route::get('/get-locations', [CommanController::class, 'getLocations']);
 
 Route::get('/get-site-settings-details', [CommanController::class, 'siteSettingDetails']);
