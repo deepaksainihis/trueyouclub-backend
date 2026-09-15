@@ -9,5 +9,21 @@ class HabitLog extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['habit_id', 'completed_date'];
+    protected $fillable = [
+        'habit_id', 'user_id', 'log_date', 'status', 'notes'
+    ];
+
+    protected $casts = [
+        'log_date' => 'date',
+    ];
+
+    public function habit()
+    {
+        return $this->belongsTo(Habit::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
