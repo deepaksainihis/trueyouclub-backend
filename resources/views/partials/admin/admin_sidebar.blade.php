@@ -116,6 +116,13 @@
             </a>
         </li>
 
+        <li class="nav-item {{ request()->is('habits') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.habits.index') }}">
+                <x-svg-icon icon="health" />
+                <span class="menu-title">Daily Habits</span>
+            </a>
+        </li>
+
         @can('contact_access')
         <li class="nav-item {{ request()->is('contacts') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.contacts') }}">
