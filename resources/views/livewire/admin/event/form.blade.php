@@ -1,0 +1,102 @@
+
+<h4 class="card-title">
+    {{ $updateMode ? __('global.edit') : __('global.create') }}
+    {{ __('cruds.event.title_singular')}}</h4>
+
+<form wire:submit.prevent="{{ $updateMode ? 'update' : 'store' }}" class="forms-sample">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="font-weight-bold justify-content-start">{{ __('cruds.event.fields.title')}}<i class="fas fa-asterisk"></i></label>
+                <input type="text" class="form-control" wire:model.defer="title" placeholder="{{ __('cruds.event.fields.title')}}" autocomplete="off">
+                @error('title') <span class="error text-danger">{{ $message }}</span>@enderror
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="location_id">Select Location</label>
+                <select class="form-control" id="location_id" wire:model.defer="location_id">
+                    <option value="" selected >Select Location</option>
+                    @foreach($locations as $key => $value)
+                        <option value="{{ $key }}"  {{ $location_id == $key ? 'selected' : '' }}>{{ $value }}</option>
+                    @endforeach
+                </select>
+                @error('location_id') <span class="error text-danger">{{ $message }}</span> @enderror
+            </div>
+        </div>
+    </div> 
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="font-weight-bold justify-content-start">{{ __('cruds.event.fields.event_date')}}<i class="fas fa-asterisk"></i></label>
+                <input type="text" id="event_date" class="form-control" wire:model.defer="event_date" placeholder="{{ __('cruds.event.fields.event_date')}}" autocomplete="off" readonly="true">
+                @error('event_date') <span class="error text-danger">{{ $message }}</span>@enderror
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="font-weight-bold justify-content-start">{{ __('cruds.event.fields.start_time')}}<i class="fas fa-asterisk"></i></label>
+                <input type="text" id="start_time" class="form-control" wire:model.defer="start_time" placeholder="{{ __('cruds.event.fields.start_time')}}" autocomplete="off" readonly="true">
+                @error('start_time') <span class="error text-danger">{{ $message }}</span>@enderror
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="font-weight-bold justify-content-start">{{ __('cruds.event.fields.end_time')}}<i class="fas fa-asterisk"></i></label>
+                <input type="text" id="end_time" class="form-control" wire:model.defer="end_time" placeholder="{{ __('cruds.event.fields.end_time')}}" autocomplete="off" readonly="true">
+                @error('end_time') <span class="error text-danger">{{ $message }}</span>@enderror
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="font-weight-bold justify-content-start">{{ __('cruds.event.fields.required_volunteers')}}<i class="fas fa-asterisk"></i></label>
+                <input type="text" class="form-control" wire:model.defer="volunteer" placeholder="{{ __('cruds.event.fields.required_volunteer')}}" autocomplete="off">
+                @error('volunteer') <span class="error text-danger">{{ $message }}</span>@enderror
+            </div>
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="form-group mb-0" wire:ignore>
+                <label class="font-weight-bold justify-content-start">{{ __('cruds.event.fields.description')}}<i class="fas fa-asterisk"></i></label>
+                <textarea class="form-control" id="summernote" wire:model.defer="description" rows="4"></textarea>
+            </div>
+            @error('description') <span class="error text-danger">{{ $message }}</span>@enderror
+        </div>
+    </div>
+
+    <div class="row logo-section">
+        <div class="col-md-12 mb-4">
+            <div class="form-group mb-0" wire:ignore>
+                <label class="font-weight-bold justify-content-start">{{ __('global.image')}}</label>
+                <input type="file" id="dropify-image" wire:model.defer="image" class="dropify" data-default-file="{{ $originalImage }}"  data-show-loader="true" data-errors-position="outside" data-allowed-file-extensions="jpeg png jpg svg" data-min-file-size-preview="1M" data-max-file-size-preview="3M"  accept="image/jpeg, image/png, image/jpg,image/svg">
+                <span wire:loading wire:target="image">
+                    <i class="fa fa-solid fa-spinner fa-spin" aria-hidden="true"></i> {{__('global.loading')}}
+                </span>
+            </div>
+            @if($errors->has('image'))
+            <span class="error text-danger">
+                {{ $errors->first('image') }}
+            </span>
+            @endif
+        </div>
+    </div>    
+
+    <button type="submit" id="updateButton" wire:loading.attr="disabled" class="btn btn-primary mr-2">
+        {{ $updateMode ? __('global.update') : __('global.submit') }}
+        <span wire:loading wire:target="{{ $updateMode ? 'update' : 'store' }}">
+            <i class="fa fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+        </span>
+    </button>
+    <button wire:click.prevent="cancel" class="btn btn-secondary">
+        {{ __('global.cancel')}}
+        <span wire:loading wire:target="cancel">
+            <i class="fa fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+        </span>
+    </button>
+</form>
+

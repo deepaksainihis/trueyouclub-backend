@@ -1,0 +1,254 @@
+
+@media (max-width:1366px){
+	.upload-buyer{
+	    margin-right: 18px;
+	}
+	.buyers-tabs .nav-link{
+    	min-width: 159px;
+	}
+	.account-in {
+	    max-width: 93%;
+	}
+}
+
+@media (max-width:1199px){
+	.block-fix{
+		position: unset;
+		margin: 0 auto 30px;
+	}
+	.pt-120{
+		padding-top: 50px;
+	}
+	.pb-block,
+	.pb-120{
+		padding-bottom: 50px;
+	}
+	.heading-title{
+		margin-bottom: 50px;
+	}
+	.grid-block-view{
+		padding: 25px;
+	}
+	.upload-multiple-data{
+	    padding: 20px 30px 22px;
+	}
+	.column--grid{
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.watch-video{
+	    padding: 24px 24px;
+	}
+	.my-30 {
+	    margin: 18px 0;
+	}
+	.upload-buyer img,
+	.upload-buyer.bg-green .upload-buyer-icon{
+		margin-right: 0;
+	}
+	.upload-buyer p,
+	.welcome-user{
+		display: none;
+	}
+	.dashboard-header{
+		padding: 15px 0;
+	}
+	.custom-divide .column-6{
+		width: 100% !important;
+	}
+	.custom-divide .column-3{
+		width: 50% !important;
+	}
+	.custom-divide .column-6{
+		order:1;
+	}
+	.custom-divide .column-3:first-child{
+		order:2;
+	}
+	.custom-divide .column-3:last-child{
+		order:3;
+	}
+	.custom-divide{
+		row-gap: 20px;
+	}
+	.buyers-tabs ul{
+		justify-content: center;
+	}
+}
+
+@media (max-width:991px){
+	.account-in {
+	    padding: 25px;
+	    margin-top: 20px;
+	}
+	.center-content h2{
+		font-size: 25px;
+		line-height: 35px;
+	}
+	.account-block .container-fluid{
+		padding: 0 15px !important;
+	}
+	.session-img{
+		display: none;
+	}
+	.w-70,
+	.w-30 {
+	    width: 100%;
+	}
+	.card-box-light{
+		padding: 30px;
+	}
+	.form-container{
+		margin-top: 20px;
+	}
+	form.form-container.upload-multiple-data{
+		margin-top: 0;
+	}
+	.modal-form-main .modal-dialog{
+		max-width: 95% !important;
+	}
+}
+@media (max-width:767px){
+	.account-block{
+		padding: 20px 0;
+	}
+	.center-content img {
+	    margin-bottom: 20px;
+	    max-width: 180px;
+	}
+	.or{
+		margin: 15px auto;
+	}
+	.form-group-btn {
+	    margin-top: 20px;
+	}
+	.gap-between{
+		padding: 70px 0;
+	}
+	.back-fix{
+		left: 0;
+	}
+	.header-logo img{
+		max-width: 150px;
+	}
+	.grid-block-icon{
+		max-width: 100px;
+		height: 100px;
+	}
+	.grid-block-icon img {
+    	max-width: 55px;
+	}
+	.upload-buyer {
+	    padding: 10px;
+	    margin-right: 8px;
+	}
+	h2{
+		font-size: 30px;
+    	line-height: 40px;
+	}
+	h3 {
+	    font-size: 20px;
+	    line-height: 30px;
+	    font-weight: 600;
+	}
+	.grid-block-view h3{
+		margin: 10px 0 0;
+	}
+	.column--grid{
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.card-box{
+		padding: 20px;
+	}
+	.feature-item-content{
+    	margin-bottom: 12px;
+	}
+	.property-critera{
+		margin-top: 20px;
+	}
+	.modal-form-main .modal-body {
+	    padding: 30px 20px;
+	}
+	.custom-divide .column-3{
+		width: 100% !important;
+	}
+	.buyers-tabs .nav-link{
+		min-width: unset;
+	}
+}
+
+@media (max-width:575px){
+	.link-pass{
+	    justify-content: left;
+	    margin-top: 10px;
+	}
+	.form-group {
+	    margin-bottom: 18px;
+	}
+	.column--grid{
+		grid-template-columns: repeat(1, 1fr);
+	}
+	.copy-link{
+		margin-top: 0;
+		margin-bottom: 18px;
+		margin-left: unset;
+	}
+	.card-box-inner p {
+	    margin-bottom: 10px;
+	}
+	.card-box-light{
+		margin: 20px auto 0;
+	}
+	.card-box-light{
+		padding: 18px;
+	}
+	.price-pc{
+		line-height: 30px;
+	    font-size: 20px;
+	}
+	.feature-item-content{
+		display: block;
+		line-height: 30px;
+	}
+	.popup-icon {
+	    border: 6px solid #3F53FE;
+	    width: 80px;
+	    height: 80px;
+	}
+	.popup-icon svg {
+	    max-height: 33px;
+	}
+		.critera-card{
+		max-width: 100%;
+	}
+	.property-critera-details {
+	    padding-left: 0;
+	    max-width: 100%;
+	    margin-top: 18px;
+	}
+	.property-critera-block{
+		display: block;
+	}
+	.cornor-block {
+	    position: unset;
+	    margin: 20px 0;
+	    justify-content: center;
+	}
+	.account-in {
+	    max-width: 100%;
+	}
+}
+@media (max-width:480px){
+	.account-with-social > li{
+		max-width: 100%;
+		flex: 100%;
+	}
+	.account-with-social a{
+		justify-content: center;
+	}
+	.upload-buyer{
+		height: auto;
+	}
+	.upload-buyer.bg-green{
+	 	display: none;
+	}
+}
