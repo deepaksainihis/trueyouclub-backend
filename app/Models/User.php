@@ -37,11 +37,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'social_id',
         'social_json',
         'remember_token',
-        'is_subscribed',
-        'customer_id',
-        'customer_status',
-        'fcm_token',
-        'points',
         'is_active',
         'vip_at',
         'star_no',
@@ -89,36 +84,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function roles()
     {
         return $this->belongsToMany(Role::class);
-    }
-
-    public function events()
-    {
-        return $this->hasMany(Event::class, 'event_coordinator');
-    }
-
-    public function badges()
-    {
-        return $this->belongsToMany(Badge::class, 'user_badges', 'user_id', 'badge_id')->withTimestamps();
-    }
-
-    public function checkAndAwardBadges()
-    {
-        // Find all badges where points_required <= user's points
-        $qualifyingBadges = Badge::where('points_required', '<=', $this->points)->pluck('id')->toArray();
-
-        if (empty($qualifyingBadges)) {
-            return;
-        }
-
-        // Get badges the user already has
-        $existingBadges = $this->badges()->pluck('badges.id')->toArray();
-
-        // Calculate badges to award
-        $newBadges = array_diff($qualifyingBadges, $existingBadges);
-
-        if (!empty($newBadges)) {
-            $this->badges()->attach($newBadges);
-        }
     }
 
     public function uploads()
@@ -180,13 +145,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(VolunteerAvailability::class,'volunteer_id');
     }
 
-    public function locations()
-    {
-        return $this->belongsTo(Location::class,'location_id');
-    }
-
-    public function chatRooms()
-    {
-        return $this->belongsToMany(ChatRoom::class, 'chat_room_user')->withTimestamps();
+    public function userLocation(){
+        return $this->belongsTo(Location::class, 'location_id', 'id');
     }
 }
