@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Api\User;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -15,12 +13,70 @@ class ChatbotController extends Controller
             'messages' => 'required|array'
         ]);
 
-        $groqApiKey = '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';
+        $user = auth('sanctum')->user();
+
+        if (!$user && $request->bearerToken()) {
+            $accessToken = \Laravel\Sanctum\PersonalAccessToken::findToken($request->bearerToken());
+            if ($accessToken) {
+                $user = $accessToken->tokenable;
+            }
+        }
+
+        $userContext = "You are speaking with a guest user who is not logged in. Encourage them to sign up to track their habits and goals.";
+        if ($user) {
+            $name = $user->first_name ?? $user->name ?? 'User';
+            $points = $user->points ?? 0;
+
+            // Fetch habits and calculate streaks
+            $habitsText = "";
+            if (class_exists(\App\Models\Habit::class) && class_exists(\App\Models\HabitLog::class)) {
+                $habits = \App\Models\Habit::where('user_id', $user->id)->get();
+                $today = \Carbon\Carbon::today()->toDateString();
+
+                if ($habits->count() > 0) {
+                    foreach ($habits as $habit) {
+                        $isCompletedToday = \App\Models\HabitLog::where('habit_id', $habit->id)
+                            ->where('completed_date', $today)
+                            ->exists();
+
+                        $currentStreak = 0;
+                        $dateToMatch = $isCompletedToday ? \Carbon\Carbon::today() : \Carbon\Carbon::yesterday();
+
+                        $logs = \App\Models\HabitLog::where('habit_id', $habit->id)
+                            ->orderBy('completed_date', 'desc')
+                            ->get();
+
+                        foreach ($logs as $log) {
+                            if ($log->completed_date == $dateToMatch->toDateString()) {
+                                $currentStreak++;
+                                $dateToMatch->subDay();
+                            } else {
+                                break;
+                            }
+                        }
+
+                        $completedStr = $isCompletedToday ? 'Yes' : 'No';
+                        $habitsText .= "- {$habit->name} (Completed Today: {$completedStr}, Streak: {$currentStreak} days)\n";
+                    }
+                } else {
+                    $habitsText = "User has not set up any habits yet.\n";
+                }
+            }
+
+            $userContext = "You are speaking with a logged-in user named {$name}. Use their name occasionally and tailor advice to their personal growth.\n\n";
+            $userContext .= "CURRENT USER DATA (Use this to give personalized advice):\n";
+            $userContext .= "- Total Reward Points: {$points}\n";
+            $userContext .= "- Active Habits:\n{$habitsText}";
+        }
+
+        $groqApiKey = env('GROQ_API_KEY');
         $groqApiUrl = 'https://api.groq.com/openai/v1/chat/completions';
 
         $systemPrompt = [
             'role' => 'system',
             'content' => "You are the True You Club AI Coach, an expert in personal growth. Your purpose is to help users with personal growth using frameworks such as Socratic questioning, goal setting, and CBT-style journaling prompts.
+
+$userContext
 
 CRITICAL INSTRUCTIONS:
 1. ONLY answer questions related to the True You Club platform, personal growth, habits, mindset, and coaching.
@@ -46,7 +102,7 @@ Always format your response clearly, using new lines for readability, but DO NOT
         $messages = $request->input('messages');
         array_unshift($messages, $systemPrompt);
 
-        $modelsToTry = ['qwen/qwen3.8-27b', 'openai/gpt-oss-20b', 'groq/compound'];
+        $modelsToTry = ['openai/gpt-oss-20b', 'qwen/qwen3.8-27b'];
         $replyContent = "I'm having a little trouble connecting right now. Please try again in a moment.";
 
         $allErrors = [];
@@ -57,16 +113,19 @@ Always format your response clearly, using new lines for readability, but DO NOT
                     'Authorization' => 'Bearer ' . $groqApiKey,
                     'Content-Type' => 'application/json'
                 ])->post($groqApiUrl, [
-                    'model' => $model,
-                    'messages' => $messages,
-                    'temperature' => 0.7,
-                    'max_tokens' => 1024,
-                ]);
+                            'model' => $model,
+                            'messages' => $messages,
+                            'temperature' => 0.7,
+                            'max_tokens' => 1024,
+                        ]);
 
                 if ($response->successful()) {
+                    $content = $response->json()['choices'][0]['message']['content'];
+                    // Strip Markdown asterisks since UI doesn't render them
+                    $content = str_replace(['**', '*'], '', $content);
                     return response()->json([
                         'status' => true,
-                        'message' => $response->json()['choices'][0]['message']['content']
+                        'message' => $content
                     ]);
                 } else {
                     $allErrors[$model] = $response->json();
