@@ -37,6 +37,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'social_id',
         'social_json',
         'remember_token',
+        'is_subscribed',
+        'customer_id',
+        'customer_status',
         'fcm_token',
         'points',
         'is_active',
@@ -118,11 +121,6 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
-    public function chatRooms()
-    {
-        return $this->belongsToMany(ChatRoom::class, 'chat_room_user')->withTimestamps();
-    }
-
     public function uploads()
     {
         return $this->morphMany(Uploads::class, 'uploadsable');
@@ -182,7 +180,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(VolunteerAvailability::class,'volunteer_id');
     }
 
-    public function userLocation(){
-        return $this->belongsTo(Location::class, 'location_id', 'id');
+    public function locations()
+    {
+        return $this->belongsTo(Location::class,'location_id');
+    }
+
+    public function chatRooms()
+    {
+        return $this->belongsToMany(ChatRoom::class, 'chat_room_user')->withTimestamps();
     }
 }

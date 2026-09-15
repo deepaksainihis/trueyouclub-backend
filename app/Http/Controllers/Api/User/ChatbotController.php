@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Api\User;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -30,24 +32,24 @@ class ChatbotController extends Controller
             // Fetch habits and calculate streaks
             $habitsText = "";
             if (class_exists(\App\Models\Habit::class) && class_exists(\App\Models\HabitLog::class)) {
-                $habits = \App\Models\Habit::where('user_id', $user->id)->get();
+                $habits = \App\Models\Habit::where('status', true)->get();
                 $today = \Carbon\Carbon::today()->toDateString();
 
                 if ($habits->count() > 0) {
                     foreach ($habits as $habit) {
                         $isCompletedToday = \App\Models\HabitLog::where('habit_id', $habit->id)
-                            ->where('completed_date', $today)
+                            ->where('log_date', $today)
                             ->exists();
 
                         $currentStreak = 0;
                         $dateToMatch = $isCompletedToday ? \Carbon\Carbon::today() : \Carbon\Carbon::yesterday();
 
                         $logs = \App\Models\HabitLog::where('habit_id', $habit->id)
-                            ->orderBy('completed_date', 'desc')
+                            ->orderBy('log_date', 'desc')
                             ->get();
 
                         foreach ($logs as $log) {
-                            if ($log->completed_date == $dateToMatch->toDateString()) {
+                            if ($log->log_date == $dateToMatch->toDateString()) {
                                 $currentStreak++;
                                 $dateToMatch->subDay();
                             } else {
@@ -143,3 +145,4 @@ Always format your response clearly, using new lines for readability, but DO NOT
         ], 200);
     }
 }
+ 
