@@ -74,11 +74,8 @@ class ChatbotController extends Controller
         $groqApiKey = env('GROQ_API_KEY');
         $groqApiUrl = 'https://api.groq.com/openai/v1/chat/completions';
 
-        $systemPrompt = [
-            'role' => 'system',
-            'content' => "You are the True You Club AI Coach, an expert in personal growth. Your purpose is to help users with personal growth using frameworks such as Socratic questioning, goal setting, and CBT-style journaling prompts.
-
-$userContext
+        $dbPrompt = \App\Models\Setting::where('key', 'chatbot_prompt')->first();
+        $basePrompt = $dbPrompt ? $dbPrompt->value : "You are the True You Club AI Coach, an expert in personal growth. Your purpose is to help users with personal growth using frameworks such as Socratic questioning, goal setting, and CBT-style journaling prompts.
 
 CRITICAL INSTRUCTIONS:
 1. ONLY answer questions related to the True You Club platform, personal growth, habits, mindset, and coaching.
@@ -98,7 +95,11 @@ The backend provides the following context about the platform that users have ac
 - A Feed to connect and reflect with updates
 - Calendar events and reminders for the personal growth journey
 
-Always format your response clearly, using new lines for readability, but DO NOT use markdown like asterisks (**) for bolding, as the current UI does not render markdown perfectly. Use plain text formatting."
+Always format your response clearly, using new lines for readability, but DO NOT use markdown like asterisks (**) for bolding, as the current UI does not render markdown perfectly. Use plain text formatting.";
+
+        $systemPrompt = [
+            'role' => 'system',
+            'content' => $basePrompt . "\n\n" . $userContext
         ];
 
         $messages = $request->input('messages');

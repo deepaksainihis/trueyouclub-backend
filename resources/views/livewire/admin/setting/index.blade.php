@@ -83,10 +83,17 @@
                                                 @endphp
                                                 @if($parameterArray)
                                                 @foreach($parameterArray as $parameter)
-                                                <button class="btn btn-sm btn-info copy-btn mb-1" data-elementVal="{{$parameter}}">{{ $parameter }}</button>
+                                                <button type="button" class="btn btn-sm btn-info copy-btn mb-1" data-elementVal="{{$parameter}}">
+                                                    <i class="fas fa-copy"></i> {{ $parameter }}
+                                                </button>
                                                 @endforeach
                                                 @endif
                                                 @endif
+                                                
+                                                <button type="button" class="btn btn-sm btn-info copy-content-btn mb-1" data-target="state.{{$setting->key}}">
+                                                    <i class="fas fa-copy"></i>
+                                                </button>
+
                                                 <textarea class="form-control summernote" wire:model.defer="state.{{$setting->key}}" data-elementName="state.{{$setting->key}}" placeholder="{{$setting->display_name}}" rows="4">{{$setting->value}}</textarea>
 
                                             </div>
@@ -285,6 +292,22 @@
             var elementVal = $(this).attr('data-elementVal');
             // console.log('click on copy btn',elementVal);
             copyToClipboard(elementVal);
+            Livewire.emit('copyTextAlert');
+        });
+
+        $(document).on('click', '.copy-content-btn', function(event) {
+            event.preventDefault();
+            var target = $(this).attr('data-target');
+            
+            // Get the content from Summernote
+            var code = $('textarea[data-elementName="'+target+'"]').summernote('code');
+            
+            // Convert HTML to plain text for copying
+            var temp = document.createElement('div');
+            temp.innerHTML = code;
+            var plainText = temp.innerText || temp.textContent;
+            
+            copyToClipboard(plainText);
             Livewire.emit('copyTextAlert');
         });
 

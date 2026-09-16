@@ -106,9 +106,19 @@ class HabitController extends Controller
 
         if ($log) {
             if ($log->status === 'completed') {
+                $streak = $this->calculateHabitStreak($id, $user->id);
+                $pointsToDeduct = 10;
+                if ($streak > 0 && $streak % 7 === 0) {
+                    $pointsToDeduct += 50;
+                }
+
+                if ($user->points < $pointsToDeduct) {
+                    return response()->json(['status' => 400, 'message' => 'You cannot uncheck this habit because you have already spent the points earned from it.']);
+                }
+
                 $log->delete();
                 $completed = false;
-                $user->points = max(0, $user->points - 10);
+                $user->points -= $pointsToDeduct;
                 $user->save();
             } else {
                 $log->status = 'completed';
