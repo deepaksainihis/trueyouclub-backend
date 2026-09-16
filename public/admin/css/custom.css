@@ -1818,7 +1818,7 @@ span.items-center.justify-between select {
 
 .user-profile-box {
     background-color: #F5F7F9;
-    margin: 4rem 1rem 3.5rem;
+    margin: 4rem 1rem 20px;
     text-align: center;
     border-radius: 10px;
     padding: 4rem 2rem 2rem;
@@ -1950,18 +1950,21 @@ body.sidebar-icon-only .sidebar .nav .nav-item .nav-link{
 
 .sidebar .nav .nav-item .nav-link svg {
     margin-right: 7px;
+    width: 20px;
+    height: 20px;
 }
 
-.sidebar .nav .nav-item.active .nav-link svg path,
-.sidebar .nav .nav-item:hover .nav-link svg path {
+.sidebar .nav>.nav-item.active>.nav-link svg path,
+.sidebar .nav>.nav-item:hover>.nav-link svg path {
     stroke: #ffffff;
 }
 
-.sidebar .nav .nav-item.active .nav-link.fillIcon svg path,
-.sidebar .nav .nav-item:hover .nav-link.fillIcon svg path{
+.sidebar .nav>.nav-item.active>.nav-link.fillIcon svg path,
+.sidebar .nav>.nav-item:hover>.nav-link.fillIcon svg path{
     stroke: none;
     fill: #fff;
 }
+
 
 .limit-description p {
     display: -webkit-box;
@@ -2623,6 +2626,28 @@ button.btn.btn-sm.btn-info.copy-btn.mb-1 {
     fill: #fff;
 }
 
+button.btn.copy-content-btn{
+    border-radius: 5px !important;
+    padding: 5px 6px;
+    background-color: #d5d9dd;
+    border: none;
+    color: #0A2540;
+    margin-left: 13px;
+    transform: translateY(2px);
+}
+button.btn.copy-content-btn i{
+    font-size: 14px;
+}
+button.btn.btn-info:not(:disabled):not(.disabled).copy-content-btn:active:focus{
+    box-shadow: none;
+}
+
+.turncate_text{
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 @media(max-width:1440px){
 
     .row.Webinars-main {
@@ -3083,6 +3108,11 @@ display: none;
 }
 .nav .nav-item.dropdown:hover .nav-link .arrowimg svg path, .nav .nav-item.dropdown.show .nav-link .arrowimg svg path, .nav .nav-item.dropdown.active .nav-link .arrowimg svg path{
     fill: #fff;
+}
+.nav .nav-item.dropdown .nav-link .arrowimg svg{
+    height: 20px;
+    width: 20px;
+    margin: 0;
 }
 
 .nav .nav-item.dropdown .dropdown-menu ul.dropdown-menu-item {

@@ -46,8 +46,10 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="font-weight-bold justify-content-start">{{ __('cruds.volunteer.fields.password')}}<i class="fas fa-asterisk"></i></label>
-                    <input type="password" class="form-control" wire:model.defer="password" id="password" placeholder="{{ __('cruds.volunteer.fields.password')}}" autocomplete="off">
-                    <span toggle="#password-field" class="form-icon-password toggle-password"><img src="{{ asset('admin/images/eye.svg') }}" class="img-fluid" alt=""></span>
+                    <div class="form-group-inner position-relative">
+                        <input type="password" class="form-control" wire:model.defer="password" id="password" placeholder="{{ __('cruds.volunteer.fields.password')}}" autocomplete="off">
+                        <span toggle="#password-field" class="form-icon-password toggle-password"><img src="{{ asset('admin/images/eye.svg') }}" class="img-fluid" alt=""></span>
+                    </div>
                     @error('password') <span class="error text-danger">{{ $message }}</span>@enderror
                 </div>
             </div>
@@ -55,24 +57,28 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="font-weight-bold justify-content-start">{{ __('cruds.volunteer.fields.confirm_password')}}<i class="fas fa-asterisk"></i></label>
-                    <input type="password" class="form-control" wire:model.defer="password_confirmation" id="password_confirmation" placeholder="{{ __('cruds.volunteer.fields.confirm_password')}}" autocomplete="off">
-                    <span toggle="#password-field" class="form-icon-password toggle-password"><img src="{{ asset('admin/images/eye.svg') }}" class="img-fluid" alt=""></span>
+                    <div class="form-group-inner position-relative">
+                        <input type="password" class="form-control" wire:model.defer="password_confirmation" id="password_confirmation" placeholder="{{ __('cruds.volunteer.fields.confirm_password')}}" autocomplete="off">
+                        <span toggle="#password-field" class="form-icon-password toggle-password"><img src="{{ asset('admin/images/eye.svg') }}" class="img-fluid" alt=""></span>
+                    </div>
                     @error('password_confirmation') <span class="error text-danger">{{ $message }}</span>@enderror
                 </div>
             </div>
         </div>       
         
     @endif
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="location_id">Select Location</label>
-            <select class="form-control" id="location_id" wire:model.defer="location_id">
-                <option value="" selected >Select Location</option>
-                @foreach($locations as $key => $value)
-                    <option value="{{ $key }}"  {{ $location_id == $key ? 'selected' : '' }}>{{ $value }}</option>
-                @endforeach
-            </select>
-            @error('location_id') <span class="text-danger">{{ $message }}</span> @enderror
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="location_id">Select Location</label>
+                <select class="form-control" id="location_id" wire:model.defer="location_id">
+                    <option value="" selected >Select Location</option>
+                    @foreach($locations as $key => $value)
+                        <option value="{{ $key }}"  {{ $location_id == $key ? 'selected' : '' }}>{{ $value }}</option>
+                    @endforeach
+                </select>
+                @error('location_id') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
         </div>
     </div>
     

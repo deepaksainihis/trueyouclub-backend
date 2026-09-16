@@ -72,7 +72,7 @@
 
     <!-- Modal -->
     <div wire:ignore.self class="modal fade" id="daily_content_modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ $modalType }} Daily Content</h5>
@@ -104,7 +104,7 @@
                         </div>
 
                         @if($type === 'micro_learning')
-                        <div class="form-group mb-3">
+                        <div class="form-group mb-0">
                             <label>Content (Text)</label>
                             <textarea rows="4" class="form-control" wire:model.defer="description"></textarea>
                             @error('description') <span class="text-danger">{{ $message }}</span> @enderror
@@ -112,7 +112,7 @@
                         @endif
 
                         @if($type === 'audio' || $type === 'video')
-                        <div class="form-group mb-3">
+                        <div class="form-group mt-3 mb-0">
                             <label>Upload Media File</label>
                             <input type="file" class="form-control" wire:model="new_media">
                             <div wire:loading wire:target="new_media">Uploading...</div>

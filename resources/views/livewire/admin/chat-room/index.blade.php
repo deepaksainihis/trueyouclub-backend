@@ -31,7 +31,7 @@
                                         @endif
                                         {{ $room->name }}
                                     </td>
-                                    <td>{{ $room->description }}</td>
+                                    <td class="turncate_text">{{ $room->description }}</td>
                                     <td>
                                         @if($room->is_active)
                                             <span class="badge bg-info" style="background-color: #d4f7d8ff !important;color: rgba(15, 167, 1, 1) !important;">Active</span>
@@ -114,13 +114,13 @@
                         <div class="mb-3">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="isActiveSwitch" wire:model="is_active" style="margin: 0;transform: translateY(2px);">
-                                <label class="form-check-label" for="isActiveSwitch">Active</label>
+                                <label class="form-check-label ml-4" for="isActiveSwitch">Active</label>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="isShareHistorySwitch" wire:model="share_history" style="margin: 0;transform: translateY(2px);">
-                                <label class="form-check-label" for="isShareHistorySwitch">Share Chat History (Users joining later can see previous messages)</label>
+                                <label class="form-check-label ml-4" for="isShareHistorySwitch">Share Chat History (Users joining later can see previous messages)</label>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Save changes</button>

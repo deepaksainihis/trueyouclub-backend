@@ -83,14 +83,14 @@
                                                 @endphp
                                                 @if($parameterArray)
                                                 @foreach($parameterArray as $parameter)
-                                                <button type="button" class="btn btn-sm btn-info copy-btn mb-1" data-elementVal="{{$parameter}}">
+                                                <!-- <button type="button" class="btn btn-sm btn-info copy-btn mb-1" data-elementVal="{{$parameter}}">
                                                     <i class="fas fa-copy"></i> {{ $parameter }}
-                                                </button>
+                                                </button> -->
                                                 @endforeach
                                                 @endif
                                                 @endif
                                                 
-                                                <button type="button" class="btn btn-sm btn-info copy-content-btn mb-1" data-target="state.{{$setting->key}}">
+                                                <button type="button" class="btn btn-sm btn-info copy-content-btn" data-target="state.{{$setting->key}}">
                                                     <i class="fas fa-copy"></i>
                                                 </button>
 

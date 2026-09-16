@@ -104,7 +104,7 @@ class Index extends Component
                 ->orWhere('phone', 'like', '%' . $searchValue . '%')
                 ->orWhere('star_no', $starNumber)
                 ->orWhere('is_active', $statusSearch)
-                ->orWhereHas('userLocation', function($query) use($searchValue){
+                ->orWhereHas('locations', function($query) use($searchValue){
                     $query->where('name', 'like', '%' . $searchValue . '%');
                 })
                 ->orWhereRaw("date_format(created_at, '" . config('constants.search_full_date_format') . "') like ?", ['%' . $searchValue . '%']);

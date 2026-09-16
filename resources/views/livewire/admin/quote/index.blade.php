@@ -111,7 +111,7 @@
     </div>
 
     <div wire:ignore.self class="modal fade" id="quote_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ $modalType }} @lang('cruds.quote.fields.message')</h5>
@@ -122,7 +122,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
+                                <div class="form-group mb-0">
                                     {{-- <label class="font-weight-bold justify-content-start">{{ __('cruds.quote.fields.message')}}<i class="fas fa-asterisk"></i></label> --}}
                                     <textarea rows="10" class="form-control" wire:model.defer="message" placeholder="{{ __('cruds.quote.fields.message')}}" autocomplete="off"></textarea>
                                     @error('message') <span class="error text-danger">{{ $message }}</span>@enderror

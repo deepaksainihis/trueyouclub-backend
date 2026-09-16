@@ -83,7 +83,7 @@
 
 
         <li class="nav-item {{ request()->is('chat-rooms') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.chat-rooms.index') }}">
+            <a class="nav-link fillIcon" href="{{ route('admin.chat-rooms.index') }}">
                 <x-svg-icon icon="chat-rooms" />
                 <span class="menu-title">Chat Rooms</span>
             </a>
@@ -95,22 +95,22 @@
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.rewards.index') }}">
+        <li class="nav-item {{ request()->is('rewards') ? 'active' : '' }}">
+            <a class="nav-link fillIcon" href="{{ route('admin.rewards.index') }}">
                 <x-svg-icon icon="rewards-store" />
                 <span class="menu-title">Rewards Store</span>
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.reward-redemptions.index') }}">
+        <li class="nav-item {{ request()->is('reward-redemptions') ? 'active' : '' }}">
+            <a class="nav-link fillIcon" href="{{ route('admin.reward-redemptions.index') }}">
                 <x-svg-icon icon="reward-redemptions" />
                 <span class="menu-title">Redemptions</span>
             </a>
         </li>
 
         <li class="nav-item {{ request()->is('badges') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.badges.index') }}">
+            <a class="nav-link fillIcon" href="{{ route('admin.badges.index') }}">
                 <x-svg-icon icon="badges-trophies" />
                 <span class="menu-title">Badges & Trophies</span>
             </a>
